@@ -363,9 +363,11 @@ fn get_env(name: &str) -> Option<String> {
 // Try to disable the generation of platform-related bindings.
 #[cfg(any(
     feature = "_gen-bindings",
-    not(all(
-        any(target_os = "linux", target_os = "macos"),
-        any(target_arch = "x86_64", target_arch = "aarch64")
+    not(any(
+        target = "x86_64-unknown-linux-gnu",
+        target = "aarch64-unknown-linux-gnu",
+        target = "x86_64-apple-darwin",
+        target = "aarch64-apple-darwin"
     ))
 ))]
 fn bindgen_grpc(file_path: &Path) {
@@ -466,9 +468,11 @@ fn config_binding_path() {
 
     #[cfg(any(
         feature = "_gen-bindings",
-        not(all(
-            any(target_os = "linux", target_os = "macos"),
-            any(target_arch = "x86_64", target_arch = "aarch64")
+        not(any(
+            target = "x86_64-unknown-linux-gnu",
+            target = "aarch64-unknown-linux-gnu",
+            target = "x86_64-apple-darwin",
+            target = "aarch64-apple-darwin"
         ))
     ))]
     {
